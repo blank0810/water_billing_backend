@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Authentication Routes
+// Route::post('/api/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+// Route::post('/api/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
+
+// Route::get('/api/login', function () {
+//     return view('welcome');
+// });
