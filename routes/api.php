@@ -19,3 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::get('address_purok_brgy', [App\Http\Controllers\AddressController::class, 'index']);
+Route::post('test', function (){
+    return 'this is a test';
+});
