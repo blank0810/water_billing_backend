@@ -8,11 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
-    /**
-     
-Retrieve all barangays and puroks.*
-@return \Illuminate\Http\JsonResponse*/
-public function index(){$barangays = DB::table('barangay')->select('b_id', 'b_desc')->get();$puroks = DB::table('purok')->select('p_id', 'p_desc')->get();
+    public function index()
+    {
+        $barangays = DB::table('barangay')->select('b_id', 'b_desc')->get();
+        $puroks = DB::table('purok')->select('p_id', 'p_desc')->get();
 
         return response()->json([
             'barangays' => $barangays,
