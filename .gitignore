@@ -1,15 +1,30 @@
+# Node / JS
 /node_modules
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-.env
-.env.backup
-.phpunit.result.cache
-docker-compose.override.yml
-Homestead.json
-Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+# Laravel / PHP
+/vendor
+.env
+.env.*
+.phpunit.result.cache
+/storage/*.key
+/storage/logs
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/public/hot
+/public/storage
+
+# IDEs
 /.idea
 /.vscode
+
+# Docker (only dev-specific files)
+/docker-compose.override.yml
+db_data/                     # Local DB volumes (optional, if mounted)
+*.log                        # Catch misc logs
+
+# Optional extras
+Homestead.json
+Homestead.yaml

@@ -1,21 +1,35 @@
-FROM php:7.4-fpm
+FROM php:8.2-fpm-alpine
 
-# Install system dependencies and PHP extensions
-RUN apt-get update && apt-get install -y \
-    git zip unzip curl libzip-dev libonig-dev libxml2-dev && \
-    docker-php-ext-install pdo_mysql zip
+# Install system dependencies
+RUN apk add --no-cache \
+    bash \
+    git \
+    unzip \
+    curl \
+    icu-dev \
+    libzip-dev \
+    zlib-dev \
+    oniguruma-dev \
+    libpng-dev \
+    jpeg-dev \
+    freetype-dev \
+    mysql-client \
+    nodejs \
+    npm
 
-# Set working directory
-WORKDIR /var/www
-
-# Copy application files
-COPY . .
+# PHP Extensions
+RUN docker-php-ext-install \
+    pdo_mysql \
+    intl \
+    zip \
+    bcmath \
+    mbstring \
+    exif \
+    pcntl \
+    opcache
 
 # Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
-# Install PHP dependencies
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
-
-# Set permissions
-RUN chown -R www-data:www-data /var/www && chmod -R 755 storage bootstrap/cache
+# Set working directory
+WORKDIR /var/www/html
