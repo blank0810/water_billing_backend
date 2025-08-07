@@ -1,5 +1,4 @@
-# Use PHP 8.2 FPM image
-FROM php:8.2-fpm
+FROM php:8.2-cli
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -12,17 +11,17 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy application files
+# Copy everything into the container
 COPY . .
 
 # Install PHP dependencies
 RUN composer install --optimize-autoloader --no-dev
 
-# Set permissions
+# Set correct permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Laravel storage setup
-RUN php artisan config:clear && php artisan route:clear && php artisan view:clear
+# Expose port 8000 for Laravel
+EXPOSE 8000
 
-# Start PHP-FPM (this is what Render expects for web services)
-CMD ["php-fpm"]
+# Start Laravel’s built-in server
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
