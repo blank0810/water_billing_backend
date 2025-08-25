@@ -19,7 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
-Route::get('v1/address', [App\Http\Controllers\AddressController::class, 'index']);
+Route::get('v1/address', [App\Http\Controllers\Address\AddressController::class, 'index']);
+
+// Customer routes
+Route::prefix('v1')->group(function () {
+    Route::post('customers', [App\Http\Controllers\Admin\CustomerController::class, 'store']);
+});
+
 Route::post('test', function () {
     return 'this is a test';
 });
